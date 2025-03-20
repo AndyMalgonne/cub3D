@@ -1,0 +1,8 @@
+*.d
+*.o
+*.a
+objs/
+.dist/
+.DS_Store
+cub3D
+.vscode/settings.json
