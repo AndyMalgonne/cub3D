@@ -6,3 +6,4 @@ objs/
 .DS_Store
 cub3D
 .vscode/settings.json
+.vscode/c_cpp_properties.json
