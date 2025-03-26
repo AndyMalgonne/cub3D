@@ -25,7 +25,7 @@ NEW			:= \r\033[K
 
 ### DIRECTORIES ###
 LIBFT_DIR 	:= lib/libft
-MLX_DIR		:= lib/mlx
+MLX_DIR		:= lib/minilibx-linux
 SRC_DIR 	:= src
 INCLD_DIR 	:= include
 OBJS_DIR 	:= objs
@@ -35,6 +35,7 @@ OBJS_DIR 	:= objs
 define INCLUDES	:=
 	$(INCLD_DIR)/
 	$(LIBFT_DIR)/$(INCLD_DIR)/
+	$(MLX_DIR)/
 endef
 INCLD_FLAG 	:= ${addprefix -I , ${INCLUDES}}
 
@@ -43,10 +44,14 @@ define INCLD_FILES :=
 endef
 
 ### LIB ###
-LIBFT		:= ${LIBFT_DIR}/libft.a
-LIB 		:= ${LIBFT}
-LIB 		:= ${strip ${LIB}}
-LIBFT_OBJS_DIR := ${LIBFT_DIR}/objs
+LIBFT			:= ${LIBFT_DIR}/libft.a
+MLX 			:= ${MLX_DIR}/libmlx.a
+LIB 			:= ${LIBFT} ${MLX} -lXext -lX11 -lm
+LIBFT_OBJS_DIR	:= ${LIBFT_DIR}/objs
+
+
+${MLX}:
+	@make -C ${MLX_DIR}
 
 ### SRCS ###
 define SRC 	:=
