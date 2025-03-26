@@ -55,7 +55,8 @@ ${MLX}:
 
 ### SRCS ###
 define SRC 	:=
-	main.c
+	main.c \
+	loop.c
 endef
 
 SRC 		:= ${strip ${SRC}}
