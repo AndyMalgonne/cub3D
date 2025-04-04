@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   conversion.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andymalgonne <andymalgonne@student.42.f    +#+  +:+       +#+        */
+/*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 16:06:03 by amalgonn          #+#    #+#             */
-/*   Updated: 2024/06/06 13:44:15 by andymalgonn      ###   ########.fr       */
+/*   Updated: 2025/04/04 13:47:08 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ int	print_char(int fd, char c)
 	return (1);
 }
 
-int	print_string(int fd, char *s)
+int	print_string(int fd, const char *s)
 {
-	if (!s)
-	{
-		ft_putstr_fd("(null)", fd);
-		return (6);
-	}
-	ft_putstr_fd(s, fd);
-	return (ft_strlen(s));
+    if (!s)
+    {
+        ft_putstr_fd("(null)", fd);
+        return (6);
+    }
+    ft_putstr_fd(s, fd);
+    return (ft_strlen(s));
 }
 
 static int	count_num(int n)

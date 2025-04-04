@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andymalgonne <andymalgonne@student.42.f    +#+  +:+       +#+        */
+/*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 14:34:49 by amalgonn          #+#    #+#             */
-/*   Updated: 2024/06/10 08:57:52 by andymalgonn      ###   ########.fr       */
+/*   Updated: 2025/04/04 13:47:37 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 
 int	print_char(int fd, char c);
-int	print_string(int fd, char *s);
+int	print_string(int fd, const char *s);
 int	print_num(int fd, int nb);
 int	putnbr_base(int fd, unsigned long nbr, char *base);
 int	print_ptr(int fd, unsigned long nbr, char *base);
