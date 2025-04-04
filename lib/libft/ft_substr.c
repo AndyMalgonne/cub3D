@@ -40,11 +40,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str[j] = '\0';
 	return (str);
 }
-
-// int main(int argc, char const *argv[])
-// {
-// 	char * s = ft_substr("tripouille", 100, 1);
-// 	printf(".%s\n", s);
-// 	free(s);
-// 	return 0;
-// }

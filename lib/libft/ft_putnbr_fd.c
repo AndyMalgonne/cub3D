@@ -6,12 +6,11 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:20:53 by amalgonn          #+#    #+#             */
-/*   Updated: 2023/11/13 15:33:49 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/04 13:31:29 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-// #include <fcntl.h>
 
 void	ft_putnbr_fd(int n, int fd)
 {
@@ -31,10 +30,3 @@ void	ft_putnbr_fd(int n, int fd)
 	else
 		ft_putchar_fd((y + '0'), fd);
 }
-
-// int main()
-// {
-// 	int n = -42;
-// 	int test = open("cc.txt", O_RDWR);
-// 	ft_putnbr_fd(n, 1);
-// }

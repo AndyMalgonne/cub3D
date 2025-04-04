@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andymalgonne <andymalgonne@student.42.f    +#+  +:+       +#+        */
+/*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:24:32 by amalgonn          #+#    #+#             */
-/*   Updated: 2024/08/02 18:46:34 by andymalgonn      ###   ########.fr       */
+/*   Updated: 2025/04/04 13:38:23 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_next_line(int fd)
 	line[0] = read_line_from_buffer(line[0], buf, fd);
 	if (ft_strlen(line[0]) == 0)
 		return (free(line[0]), NULL);
-	line[1] = ft_strchr(line[0], '\n');
+	line[1] = (char *)ft_strchr(line[0], '\n');
 	if (line[1] != NULL)
 	{
 		i = line[1] - line[0] + 1;

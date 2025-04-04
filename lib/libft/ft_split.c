@@ -60,8 +60,3 @@ char	**ft_split(char const *s, char c)
 	tab [i[1]] = (NULL);
 	return (tab);
 }
-
-// int	main()
-// {
-// 	printf("%s", ft_split("  tripouille  42  ", ' '));
-// }
