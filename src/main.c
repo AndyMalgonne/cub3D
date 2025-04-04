@@ -6,13 +6,11 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/04 11:27:49 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:52:49 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 void init_struct(t_data *data)
 {
