@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/03/26 11:55:42 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:27:49 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void	is_cub(char *file)
+void init_struct(t_data *data)
 {
-	int i;
-
-	i = ft_strlen(file);
-	if (file[i - 1] != 'b' || file[i - 2] != 'u' || file[i - 3] != 'c' || file[i - 4] != '.')
-		printf("Error\nInvalid file extension\n");
+	data->no = NULL;
+	data->so = NULL;
+	data->ea = NULL;
+	data->we = NULL;
+	data->ceiling = NULL;
+	data->floor = NULL;
+	data->map = NULL;
 }
 
-// int main(int argc, char **argv)
-// {
-// 	if (argc =! 2)
-// 		ft_error("Error\nInvalid number of arguments\n");
-// 	if(!is_cube(argv[1]))
-// 		ft_error("Error\nInvalid file extension\n");
-// 	return (0);
-// }
-
-
-
-int main()
+int main(int argc, char **argv)
 {
-    void *mlx;
-    void *win;
-    void *img;
-    int img_width, img_height;
-    mlx = mlx_init();
-    if (!mlx)
-    {
-        printf("Erreur : Impossible d'initialiser MLX\n");
-        return (1);
-    }
-    win = mlx_new_window(mlx, 800, 600, "Test MLX");
-    if (!win)
-    {
-        printf("Erreur : Impossible de créer la fenêtre\n");
-        return (1);
-    }
-    img = mlx_xpm_file_to_image(mlx, "./texture/wall.xpm", &img_width, &img_height);
-    if (!img)
-    {
-        printf("Erreur : Impossible de charger l'image\n");
-        return (1);
-    }
-    mlx_put_image_to_window(mlx, win, img, 0, 0);
-	init_hooks(mlx, win);
-    mlx_loop(mlx);
+    t_data data;
+
+    init_struct(&data);
+    if (argc != 2)
+        return (printf("Error\nInvalid number of arguments\n"), 1);
+    if (!read_file(argv[1], &data))
+        return (printf("Error\nFailed to read file\n"), 1);
+    printf("NO: %s\n", data.no);
+    printf("SO: %s\n", data.so);
+    printf("EA: %s\n", data.ea);
+    printf("WE: %s\n", data.we);
+    printf("C: %s\n", data.ceiling);
+    printf("F: %s\n", data.floor);
+    printf("Map:\n%s\n", data.map);
+    if (data.no)
+        free(data.no);
+    if (data.so)
+        free(data.so);
+    if (data.ea)
+        free(data.ea);
+    if (data.we)
+        free(data.we);
+    if (data.ceiling)
+        free(data.ceiling);
+    if (data.floor)
+        free(data.floor);
+    if (data.map)
+        free(data.map);
     return (0);
 }
