@@ -6,38 +6,64 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:57:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/04 14:58:49 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/07 09:47:52 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int check_valid_char(t_data *data)
+int	check_top_wall(t_data *data)
 {
-    int i;
-    int j;
-    int player_count;
+	int	j;
 
-    player_count = 0;
-    i = 0;
-    while (data->map[i])
-    {
-        j = 0;
-        while (data->map[i][j])
-        {
-            if (data->map[i][j] == 'N' || data->map[i][j] == 'S' ||
-                data->map[i][j] == 'E' || data->map[i][j] == 'W')
-                player_count++;
-            else if (data->map[i][j] != '1' && data->map[i][j] != '0' &&
-                     data->map[i][j] != ' ' && data->map[i][j] != 'N' &&
-					data->map[i][j] != 'S' && data->map[i][j] != 'E' &&
-					data->map[i][j] != 'W')
-                return (printf("Error\nInvalid characters in map\n"), 0);
-            j++;
-        }
-        i++;
-    }
-    if (player_count != 1)
-        return (printf("Error\nToo many or no players in map\n"), 0);
-    return (1);
+	j = 0;
+	while (data->map[0][j])
+	{
+		if (data->map[0][j] != '1' && data->map[0][j] != ' ')
+			return (printf("Error\nMap is not closed at top\n"), 0);
+		j++;
+	}
+	return (1);
+}
+
+int	check_bottom_wall(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (data->map[i])
+		i++;
+	i--;
+	while (data->map[i][j])
+	{
+		if (data->map[i][j] != '1' && data->map[i][j] != ' ')
+			return (printf("Error\nMap is not closed at bottom\n"), 0);
+		j++;
+	}
+	return (1);
+}
+
+int	check_left_and_right_walls(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (data->map[i])
+	{
+		j = 0;
+		while (data->map[i][j] == ' ')
+			j++;
+		if (data->map[i][j] != '1')
+			return (printf("Error\nMap is not closed at left\n"), 0);
+		j = ft_strlen(data->map[i]) - 1;
+		while (j >= 0 && data->map[i][j] == ' ')
+			j--;
+		if (j >= 0 && data->map[i][j] != '1')
+			return (printf("Error\nMap is not closed at right\n"), 0);
+		i++;
+	}
+	return (1);
 }

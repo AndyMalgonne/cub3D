@@ -56,7 +56,9 @@ define SRC 	:=
 	main.c \
 	loop.c \
 	check_file.c \
-	check_map.c
+	check_map.c \
+	check_map2.c \
+	utils.c
 endef
 
 SRC 		:= ${strip ${SRC}}

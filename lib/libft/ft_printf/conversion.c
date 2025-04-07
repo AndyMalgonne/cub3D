@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 16:06:03 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/04 13:47:08 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/07 10:48:12 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	print_char(int fd, char c)
 
 int	print_string(int fd, const char *s)
 {
-    if (!s)
-    {
-        ft_putstr_fd("(null)", fd);
-        return (6);
-    }
-    ft_putstr_fd(s, fd);
-    return (ft_strlen(s));
+	if (!s)
+	{
+		ft_putstr_fd("(null)", fd);
+		return (6);
+	}
+	ft_putstr_fd(s, fd);
+	return (ft_strlen(s));
 }
 
 static int	count_num(int n)
