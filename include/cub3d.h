@@ -21,11 +21,11 @@ struct t_data
 	char	*we;
 	char	*ceiling;
 	char	*floor;
-	char	*map;
+	char	**map;
 } typedef t_data;
 
 void	init_hooks(void *mlx, void *win);
 int		read_file(char *file, t_data *data);
-
+int		check_valid_char(t_data *data);
 
 #endif

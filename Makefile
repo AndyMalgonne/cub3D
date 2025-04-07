@@ -50,14 +50,13 @@ LIB 			:= ${LIBFT} ${MLX} -lXext -lX11 -lm
 LIBFT_OBJS_DIR	:= ${LIBFT_DIR}/objs
 
 
-${MLX}:
-	@make -C ${MLX_DIR}
 
 ### SRCS ###
 define SRC 	:=
 	main.c \
 	loop.c \
-	check_file.c
+	check_file.c \
+	check_map.c
 endef
 
 SRC 		:= ${strip ${SRC}}
@@ -66,6 +65,9 @@ DEPS		:= ${patsubst %.c,${OBJS_DIR}/%.d,${SRC}}
 
 ### PROJECT ###
 all: ${NAME}
+
+${MLX}:
+	@make -C ${MLX_DIR}
 
 ${NAME}: ${LIB} ${OBJS}
 	@printf "${NEW}${PURPLE}[${NAME}] ${UGREEN}Compiling :${DEFAULT}${BWHITE} $@${DEFAULT}"
