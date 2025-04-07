@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/04 11:32:23 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:44:04 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,39 @@ void color_parsing(char *line, t_data *data)
 
 void store_map(char *line, t_data *data)
 {
-    char *tmp;
+    char **new_map;
+    int i;
+    int len;
 
+	len = ft_strlen(line);
+    if (len > 0 && line[len - 1] == '\n')
+        line[len - 1] = '\0';
     if (!data->map)
-        data->map = ft_strdup(line);
     {
-        tmp = data->map;
-        data->map = ft_strjoin(data->map, line);
-        free(tmp);
+        data->map = malloc(sizeof(char *) * 2);
+        if (!data->map)
+            return;
+        data->map[0] = ft_strdup(line);
+        data->map[1] = NULL;
+    }
+    else
+    {
+        i = 0;
+        while (data->map[i])
+            i++;
+        new_map = malloc(sizeof(char *) * (i + 2));
+        if (!new_map)
+            return;
+        i = 0;
+        while (data->map[i])
+        {
+            new_map[i] = data->map[i];
+            i++;
+        }
+        new_map[i] = ft_strdup(line);
+        new_map[i + 1] = NULL;
+        free(data->map);
+        data->map = new_map;
     }
 }
 
