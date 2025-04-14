@@ -6,26 +6,21 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:59:44 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:54:15 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_trim(char *str)
+void	assign_texture(char **texture, char *identifier, char *trimmed_line)
 {
-	int		start;
-	int		end;
-
-	if (!str)
-		return (NULL);
-	start = 0;
-	while (str[start] && (str[start] == ' ' || str[start] == '\t'))
-		start++;
-	end = ft_strlen(str) - 1;
-	while (end > start && (str[end] == ' ' || str[end] == '\t'))
-		end--;
-	return (ft_substr(str, start, end - start + 1));
+	if (*texture)
+	{
+		printf("Error\nDuplicate texture: %s\n", identifier);
+		free(trimmed_line);
+		exit(1);
+	}
+	*texture = trimmed_line;
 }
 
 void	texture_parsing(char *line, t_data *data)
@@ -34,13 +29,19 @@ void	texture_parsing(char *line, t_data *data)
 
 	trimmed_line = ft_trim(line + 2);
 	if (ft_strncmp(line, "NO", 2) == 0)
-		data->no = trimmed_line;
+		assign_texture(&data->no, "NO", trimmed_line);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		data->so = trimmed_line;
+		assign_texture(&data->so, "SO", trimmed_line);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		data->we = trimmed_line;
+		assign_texture(&data->we, "WE", trimmed_line);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		data->ea = trimmed_line;
+		assign_texture(&data->ea, "EA", trimmed_line);
+	else
+	{
+		free(trimmed_line);
+		printf("Error\nInvalid texture identifier\n");
+		exit(1);
+	}
 	data->flag++;
 }
 
@@ -50,9 +51,19 @@ void	color_parsing(char *line, t_data *data)
 
 	trimmed_line = ft_trim(line + 1);
 	if (ft_strncmp(line, "C", 1) == 0)
+	{
+		if (data->ceiling)
+			return (printf("Error\nDuplicate color: C\n"),
+				free(trimmed_line), exit(1));
 		data->ceiling = trimmed_line;
+	}
 	else if (ft_strncmp(line, "F", 1) == 0)
+	{
+		if (data->floor)
+			return (printf("Error\nDuplicate color: F\n"),
+				free(trimmed_line), exit(1));
 		data->floor = trimmed_line;
+	}
 	data->flag++;
 }
 

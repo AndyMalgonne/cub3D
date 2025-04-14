@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:15:42 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:52:28 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int		check_color_texture_not_null(t_data *data);
 int		is_line_empty(char *line);
 // utils2.c
 int		is_cub(char *file);
+char	*ft_trim(char *str);
 
 #endif

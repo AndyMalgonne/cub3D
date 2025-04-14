@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:33:59 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 10:09:05 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:53:56 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,11 @@ int	check_map_closed(t_data *data)
 {
 	int	i;
 	int	player_count;
-	if (!data->map || !data->map[0])
-		return (printf("Error\nMap is empty\n"), 0);
+
 	i = 0;
 	player_count = 0;
+	if (!data->map || !data->map[0])
+		return (printf("Error\nMap is empty\n"), 0);
 	while (data->map[i])
 	{
 		if (!check_row(data, i, &player_count))
