@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:15:06 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 10:52:07 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:53:38 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ char	*ft_trim(char *str)
 	if (!str)
 		return (NULL);
 	start = 0;
-	while (str[start] && (str[start] == ' ' || str[start] == '\t'))
+	while (str[start] && (str[start] == ' ' || str[start] == '\t'
+			|| str[start] == '\n'))
 		start++;
 	end = ft_strlen(str) - 1;
-	while (end > start && (str[end] == ' ' || str[end] == '\t'))
+	while (end > start && (str[end] == ' ' || str[end] == '\t'
+			|| str[end] == '\n'))
 		end--;
 	return (ft_substr(str, start, end - start + 1));
 }

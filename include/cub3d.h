@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 10:52:28 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:55:56 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 typedef struct s_data
 {
+	void	*mlx;
+	void	*win;
 	char	*no;
 	char	*so;
 	char	*ea;
@@ -35,6 +37,8 @@ typedef struct s_data
 	char	*floor;
 	char	**map;
 	int		flag;
+	int		img_width;
+	int		img_height;
 }	t_data;
 
 void	init_hooks(void *mlx, void *win);
@@ -58,5 +62,8 @@ int		is_line_empty(char *line);
 // utils2.c
 int		is_cub(char *file);
 char	*ft_trim(char *str);
+// load.c
+int		parse_color(char *line);
+void	load_textures(t_data *data);
 
 #endif

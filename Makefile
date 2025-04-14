@@ -60,7 +60,8 @@ define SRC 	:=
 	check_map.c \
 	check_map2.c \
 	utils.c \
-	utils2.c 
+	utils2.c \
+	load.c
 endef
 
 SRC 		:= ${strip ${SRC}}
