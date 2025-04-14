@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:59:59 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 14:33:03 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:45:52 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,29 @@ int	parse_color(char *line)
 	return (ft_fsplit(rgb), color);
 }
 
-void	load_textures(t_data *data)
+int	load_textures(t_data *data)
 {
 	data->no = mlx_xpm_file_to_image(data->mlx, data->no,
 			&data->img_width, &data->img_height);
 	if (!data->no)
-		return (printf("Error\nFailed to load texture: NO (%s)\n", data->no),
-			exit(1));
+		return (printf("Error\nFailed to load texture: NO (%s)\n",
+				data->no), 0);
 	data->so = mlx_xpm_file_to_image(data->mlx, data->so,
 			&data->img_width, &data->img_height);
 	if (!data->so)
-		return (printf("Error\nFailed to load texture: SO (%s)\n", data->so),
-			exit(1));
+		return (printf("Error\nFailed to load texture: SO (%s)\n",
+				data->so), 0);
 	data->we = mlx_xpm_file_to_image(data->mlx, data->we,
 			&data->img_width, &data->img_height);
 	if (!data->we)
-		return (printf("Error\nFailed to load texture: WE (%s)\n", data->we),
-			exit(1));
+		return (printf("Error\nFailed to load texture: WE (%s)\n",
+				data->we), 0);
 	data->ea = mlx_xpm_file_to_image(data->mlx, data->ea,
 			&data->img_width, &data->img_height);
 	if (!data->ea)
-		return (printf("Error\nFailed to load texture: EA (%s)\n", data->ea),
-			exit(1));
+		return (printf("Error\nFailed to load texture: EA (%s)\n",
+				data->ea), 0);
 	if (!data->no || !data->so || !data->we || !data->ea)
-	{
-		printf("Error\nFailed to load one or more textures\n");
-		exit(1);
-	}
+		return (printf("Error\nFailed to load one or more textures\n"), 0);
+	return (1);
 }

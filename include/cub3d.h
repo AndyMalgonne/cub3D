@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 13:55:56 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:39:31 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int		is_cub(char *file);
 char	*ft_trim(char *str);
 // load.c
 int		parse_color(char *line);
-void	load_textures(t_data *data);
+int		load_textures(t_data *data);
 
 #endif
