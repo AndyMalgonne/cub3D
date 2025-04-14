@@ -55,13 +55,13 @@ LIBFT_OBJS_DIR	:= ${LIBFT_DIR}/objs
 define SRC 	:=
 	main.c \
 	loop.c \
-	check_file.c \
-	check_file2.c \
-	check_map.c \
-	check_map2.c \
+	parsing/check_file.c \
+	parsing/check_file2.c \
+	parsing/check_map.c \
+	parsing/check_map2.c \
+	parsing/load.c \
 	utils.c \
-	utils2.c \
-	load.c
+	utils2.c
 endef
 
 SRC 		:= ${strip ${SRC}}
@@ -82,7 +82,7 @@ ${NAME}: ${LIB} ${OBJS}
 -include ${DEPS}
 ${OBJS_DIR}/%.o: ${SRC_DIR}/%.c
 	@printf "${NEW}${PURPLE}[${NAME}] ${UGREEN}Compiling :${DEFAULT} $<"
-	@mkdir -p ${OBJS_DIR}
+	@mkdir -p ${dir $@}
 	@${CC} ${DEP_FLAGS} ${CFLAGS} ${INCLD_FLAG} -c $< -o $@
 
 clean:
