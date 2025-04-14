@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:57:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:13:21 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:02:53 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	check_top_wall(t_data *data)
 	j = 0;
 	while (data->map[0][j])
 	{
-		if (data->map[0][j] != '1' && data->map[0][j] != ' ')
+		if (data->map[0][j] != '1' && (data->map[0][j] != ' '
+			|| data->map[0][j] != '\t'))
 			return (printf("Error\nMap is not closed at top\n"), 0);
 		j++;
 	}
@@ -38,7 +39,8 @@ int	check_bottom_wall(t_data *data)
 	i--;
 	while (data->map[i][j])
 	{
-		if (data->map[i][j] != '1' && data->map[i][j] != ' ')
+		if (data->map[i][j] != '1' && (data->map[i][j] != ' '
+			|| data->map[i][j] != '\t'))
 			return (printf("Error\nMap is not closed at bottom\n"), 0);
 		j++;
 	}
@@ -54,7 +56,8 @@ int	check_left_and_right_walls(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
-		while (data->map[i][j] && data->map[i][j] == ' ')
+		while (data->map[i][j] && (data->map[i][j] == ' '
+			|| data->map[i][j] == '\t'))
 			j++;
 		if (!data->map[i][j])
 		{
@@ -64,7 +67,7 @@ int	check_left_and_right_walls(t_data *data)
 		if (data->map[i][j] != '1')
 			return (printf("Error\nMap is not closed at left\n"), 0);
 		j = ft_strlen(data->map[i]) - 1;
-		while (j >= 0 && data->map[i][j] == ' ')
+		while (j >= 0 && (data->map[i][j] == ' ' || data->map[i][j] == '\t'))
 			j--;
 		if (j >= 0 && data->map[i][j] != '1')
 			return (printf("Error\nMap is not closed at right\n"), 0);

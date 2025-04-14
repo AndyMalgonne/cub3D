@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:33:59 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:09:25 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:03:26 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,18 @@ int	check_surroundings(t_data *data, int i, int j)
 		return (printf("Error\nMap open at edge near (%d, %d)\n",
 				(i + 1), (j + 1)), 0);
 	if (i > 0 && (j >= (int)ft_strlen(data->map[i - 1])
-			|| data->map[i - 1][j] == ' '))
+			|| (data->map[i - 1][j] == ' ' || data->map[i - 1][j] == '\t')))
 		return (printf("Error\nMap open near space at (%d, %d)\n",
 				(i + 1), (j + 1)), 0);
 	if (data->map[i + 1] && (j >= (int)ft_strlen(data->map[i + 1])
-			|| data->map[i + 1][j] == ' '))
+			|| (data->map[i + 1][j] == ' ') || data->map[i + 1][j] == '\t'))
 		return (printf("Error\nMap open near space at (%d, %d)\n",
 				(i + 1), (j + 1)), 0);
-	if (j > 0 && data->map[i][j - 1] == ' ')
+	if (j > 0 && (data->map[i][j - 1] == ' ' || data->map[i][j - 1] == '\t'))
 		return (printf("Error\nMap open near space at (%d, %d)\n",
 				(i + 1), (j + 1)), 0);
-	if (j + 1 >= (int)ft_strlen(data->map[i]) || data->map[i][j + 1] == ' ')
+	if (j + 1 >= (int)ft_strlen(data->map[i]) || (data->map[i][j + 1] == ' '
+		|| data->map[i][j + 1] == '\t'))
 		return (printf("Error\nMap open near space at (%d, %d)\n",
 				(i + 1), (j + 1)), 0);
 	return (1);
@@ -49,6 +50,8 @@ int	check_invalid_char(t_data *data, int i, int j)
 	char	c;
 
 	c = data->map[i][j];
+	if (c == '\t')
+		c = ' ';
 	if (c != 'N' && c != 'S' && c != 'E' && c != 'W'
 		&& c != '0' && c != '1' && c != ' ')
 	{

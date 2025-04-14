@@ -6,45 +6,53 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 08:29:58 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:59:44 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+char	*ft_trim(char *str)
+{
+	int		start;
+	int		end;
+
+	if (!str)
+		return (NULL);
+	start = 0;
+	while (str[start] && (str[start] == ' ' || str[start] == '\t'))
+		start++;
+	end = ft_strlen(str) - 1;
+	while (end > start && (str[end] == ' ' || str[end] == '\t'))
+		end--;
+	return (ft_substr(str, start, end - start + 1));
+}
+
 void	texture_parsing(char *line, t_data *data)
 {
-	int	i;
+	char	*trimmed_line;
 
-	i = 0;
-	while (line[i] && line[i] != ' ')
-		i++;
-	while (line[i] && line[i] == ' ')
-		i++;
+	trimmed_line = ft_trim(line + 2);
 	if (ft_strncmp(line, "NO", 2) == 0)
-		data->no = ft_strdup(line + i);
+		data->no = trimmed_line;
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		data->so = ft_strdup(line + i);
+		data->so = trimmed_line;
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		data->we = ft_strdup(line + i);
+		data->we = trimmed_line;
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		data->ea = ft_strdup(line + i);
+		data->ea = trimmed_line;
 	data->flag++;
 }
 
 void	color_parsing(char *line, t_data *data)
 {
-	int	i;
+	char	*trimmed_line;
 
-	i = 0;
-	while (line[i] && line[i] != ' ')
-		i++;
-	while (line[i] && line[i] == ' ')
-		i++;
+	trimmed_line = ft_trim(line + 1);
 	if (ft_strncmp(line, "C", 1) == 0)
-		data->ceiling = ft_strdup(line + i);
+		data->ceiling = trimmed_line;
 	else if (ft_strncmp(line, "F", 1) == 0)
-		data->floor = ft_strdup(line + i);
+		data->floor = trimmed_line;
 	data->flag++;
 }
 
