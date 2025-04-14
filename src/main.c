@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/07 10:19:47 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:28:34 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_struct(t_data *data)
 	data->ceiling = NULL;
 	data->floor = NULL;
 	data->map = NULL;
+	data->flag = 0;
 }
 
 int	main(int argc, char **argv)
@@ -33,6 +34,8 @@ int	main(int argc, char **argv)
 	if (!read_file(argv[1], &data))
 		return (printf("Error\nFailed to read file\n"), 1);
 	if (!check_map(&data))
+		return (1);
+	if (!check_color_texture_not_null(&data))
 		return (1);
 	printf("NO: %s\n", data.no);
 	printf("SO: %s\n", data.so);

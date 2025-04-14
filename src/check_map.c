@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 13:57:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/07 09:47:52 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:13:21 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,13 @@ int	check_left_and_right_walls(t_data *data)
 	while (data->map[i])
 	{
 		j = 0;
-		while (data->map[i][j] == ' ')
+		while (data->map[i][j] && data->map[i][j] == ' ')
 			j++;
+		if (!data->map[i][j])
+		{
+			i++;
+			continue ;
+		}
 		if (data->map[i][j] != '1')
 			return (printf("Error\nMap is not closed at left\n"), 0);
 		j = ft_strlen(data->map[i]) - 1;

@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/07 10:39:15 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 08:29:58 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	texture_parsing(char *line, t_data *data)
 		data->we = ft_strdup(line + i);
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		data->ea = ft_strdup(line + i);
+	data->flag++;
 }
 
 void	color_parsing(char *line, t_data *data)
@@ -44,6 +45,7 @@ void	color_parsing(char *line, t_data *data)
 		data->ceiling = ft_strdup(line + i);
 	else if (ft_strncmp(line, "F", 1) == 0)
 		data->floor = ft_strdup(line + i);
+	data->flag++;
 }
 
 char	**reallocate_map(char **map, char *line)
@@ -90,33 +92,4 @@ void	store_map(char *line, t_data *data)
 		if (!data->map)
 			return ;
 	}
-}
-
-int	read_file(char *file, t_data *data)
-{
-	int		fd;
-	char	*line;
-
-	if (!is_cub(file))
-		return (0);
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-	{
-		perror("Error opening file");
-		return (0);
-	}
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
-			|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0)
-			texture_parsing(line, data);
-		else if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-			color_parsing(line, data);
-		else if (ft_strncmp(line, "1", 1) == 0 || line[0] == ' ')
-			store_map(line, data);
-		(free(line), line = get_next_line(fd));
-	}
-	close(fd);
-	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/07 10:39:47 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:15:42 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_data
 	char	*ceiling;
 	char	*floor;
 	char	**map;
+	int		flag;
 }	t_data;
 
 void	init_hooks(void *mlx, void *win);
@@ -41,13 +42,20 @@ int		read_file(char *file, t_data *data);
 int		check_walls(t_data *data);
 int		check_map_closed(t_data *data);
 
+// check_file.c
+void	texture_parsing(char *line, t_data *data);
+void	color_parsing(char *line, t_data *data);
+void	store_map(char *line, t_data *data);
 // check_map.c
 int		check_top_wall(t_data *data);
 int		check_bottom_wall(t_data *data);
 int		check_left_and_right_walls(t_data *data);
 // utils.c
-int		is_cub(char *file);
 int		check_map(t_data *data);
 int		check_walls(t_data *data);
+int		check_color_texture_not_null(t_data *data);
+int		is_line_empty(char *line);
+// utils2.c
+int		is_cub(char *file);
 
 #endif
