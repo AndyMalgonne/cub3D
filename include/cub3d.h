@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 14:39:31 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:56:10 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,34 @@
 # include <mlx.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <math.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+#define MOVE_SPEED 0.05
+#define ROT_SPEED 0.05
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
+typedef struct s_game
+{
+	double posX;
+	double posY;
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double time;
+	double oldtime;
+}	t_game;
 
 typedef struct s_data
 {
+	t_game	*game;
+	t_img	img;
 	void	*mlx;
 	void	*win;
 	char	*no;
@@ -39,9 +61,11 @@ typedef struct s_data
 	int		flag;
 	int		img_width;
 	int		img_height;
+	int		win_width;
+	int		win_height;
 }	t_data;
 
-void	init_hooks(void *mlx, void *win);
+int		init_hooks(t_data *data);
 int		read_file(char *file, t_data *data);
 int		check_walls(t_data *data);
 int		check_map_closed(t_data *data);
@@ -65,5 +89,15 @@ char	*ft_trim(char *str);
 // load.c
 int		parse_color(char *line);
 int		load_textures(t_data *data);
+// raycasting.c
+int		get_player_position_and_direction(t_data *data, t_game *game);
+// rotate.c
+void	rotate_left(t_data *data);
+void	rotate_right(t_data *data);
+// movement.c
+void	move_forward(t_data *data);
+void	move_backward(t_data *data);
+void	strafe_left(t_data *data);
+void	strafe_right(t_data *data);
 
 #endif
