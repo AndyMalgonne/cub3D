@@ -5,71 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/18 13:36:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/18 15:26:51 by amalgonn         ###   ########.fr       */
+/*   Created: 2025/04/21 13:38:02 by amalgonn          #+#    #+#             */
+/*   Updated: 2025/04/21 15:39:15 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	set_direction(t_game *game, char pos)
+void	init_ray(t_data *data, int x, t_ray *ray)
 {
-	if (pos == 'N')
-	{
-		game->dirX = 0;
-		game->dirY = -1;
-		game->planeX = -0.66;
-		game->planeY = 0;
-	}
-	else if (pos == 'S')
-	{
-		game->dirX = 0;
-		game->dirY = 1;
-		game->planeX = 0.66;
-		game->planeY = 0;
-	}
-	else if (pos == 'E')
-	{
-		game->dirX = 1;
-		game->dirY = 0;
-		game->planeX = 0;
-		game->planeY = 0.66;
-	}
-	else if (pos == 'W')
-	{
-		game->dirX = -1;
-		game->dirY = 0;
-		game->planeX = 0;
-		game->planeY = -0.66;
-	}
-	else
-		return(printf("Error\nInvalid position\n"), 0);
-	return (1);
+	double	camera_x;
+
+	camera_x = 2 * x / (double)data->win_width - 1;
+	ray->ray_dir_x = data->game->dir_x + data->game->plane_x * camera_x;
+	ray->ray_dir_y = data->game->dir_y + data->game->plane_y * camera_x;
+	ray->map_x = (int)data->game->pos_x;
+	ray->map_y = (int)data->game->pos_y;
 }
 
-int	get_player_position_and_direction(t_data *data, t_game *game)
+void	calc_delta_dist(t_ray *ray)
 {
-	int		i;
-	int		j;
-	char	c;
+	if (ray->ray_dir_x == 0)
+		ray->delta_dist_x = 1e30;
+	else
+		ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+	if (ray->ray_dir_y == 0)
+		ray->delta_dist_y = 1e30;
+	else
+		ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+}
 
-	i = 0;
-	while (data->map[i])
+void	init_step(t_data *data, t_ray *ray)
+{
+	if (ray->ray_dir_x < 0)
 	{
-		j = 0;
-		while (data->map[i][j])
-		{
-			c = data->map[i][j];
-			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-			{
-				game->posX = j + 0.5;
-				game->posY = i + 0.5;
-				data->map[i][j] = '0';
-				return (set_direction(game, c));
-			}
-			j++;
-		}
-		i++;
+		ray->step_x = -1;
+		ray->side_dist_x = (data->game->pos_x - ray->map_x) * ray->delta_dist_x;
 	}
-	return (printf("Error\nNo player position found\n"), 0);
+	else
+	{
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - data->game->pos_x)
+			* ray->delta_dist_x;
+	}
+	if (ray->ray_dir_y < 0)
+	{
+		ray->step_y = -1;
+		ray->side_dist_y = (data->game->pos_y - ray->map_y) * ray->delta_dist_y;
+	}
+	else
+	{
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - data->game->pos_y)
+			* ray->delta_dist_y;
+	}
+}
+
+void	cast_ray(t_data *data, t_ray *ray)
+{
+	int	hit;
+
+	hit = 0;
+	while (hit == 0)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
+			ray->side = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
+			ray->side = 1;
+		}
+		if (data->map[ray->map_y][ray->map_x] == '1')
+			hit = 1;
+	}
+}
+
+void	calc_perp_wall_dist(t_data *data, t_ray *ray)
+{
+	if (ray->side == 0)
+	{
+		ray->perp_wall_dist = (ray->map_x - data->game->pos_x
+				+ (1 - ray->step_x) / 2) / ray->ray_dir_x;
+	}
+	else
+	{
+		ray->perp_wall_dist = (ray->map_y - data->game->pos_y
+				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
+	}
 }

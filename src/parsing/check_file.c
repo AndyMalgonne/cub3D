@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 10:54:15 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:06:24 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	texture_parsing(char *line, t_data *data)
 
 	trimmed_line = ft_trim(line + 2);
 	if (ft_strncmp(line, "NO", 2) == 0)
-		assign_texture(&data->no, "NO", trimmed_line);
+		assign_texture(&data->textures->no_path, "NO", trimmed_line);
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		assign_texture(&data->so, "SO", trimmed_line);
+		assign_texture(&data->textures->so_path, "SO", trimmed_line);
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		assign_texture(&data->we, "WE", trimmed_line);
+		assign_texture(&data->textures->we_path, "WE", trimmed_line);
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		assign_texture(&data->ea, "EA", trimmed_line);
+		assign_texture(&data->textures->ea_path, "EA", trimmed_line);
 	else
 	{
 		free(trimmed_line);

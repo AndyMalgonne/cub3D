@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:15:06 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 12:53:38 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/21 14:01:37 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,10 @@ char	*ft_trim(char *str)
 			|| str[end] == '\n'))
 		end--;
 	return (ft_substr(str, start, end - start + 1));
+}
+
+void	ft_error(char *msg)
+{
+	printf("%s\n", msg);
+	exit(1);
 }

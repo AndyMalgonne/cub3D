@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/18 14:56:10 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:22:50 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,45 +25,95 @@
 
 #define MOVE_SPEED 0.05
 #define ROT_SPEED 0.05
-typedef struct s_img {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img;
 
 typedef struct s_game
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
-	double time;
-	double oldtime;
-}	t_game;
+    double pos_x;
+    double pos_y;
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
+    double time;
+    double oldtime;
+} t_game;
+
+typedef struct s_texture
+{
+    char	*no_path;
+    char	*so_path;
+    char	*ea_path;
+    char	*we_path;
+    void	*no_img;
+    void	*so_img;
+    void	*ea_img;
+    void	*we_img;
+    char	*no_addr;
+    char	*so_addr;
+    char	*ea_addr;
+    char	*we_addr;
+    int		no_width;
+    int		so_width;
+    int		ea_width;
+    int		we_width;
+    int		no_height;
+    int		so_height;
+    int		ea_height;
+    int		we_height;
+    int		bpp;
+    int		line_len;
+    int		endian;
+} t_texture;
 
 typedef struct s_data
 {
-	t_game	*game;
-	t_img	img;
-	void	*mlx;
-	void	*win;
-	char	*no;
-	char	*so;
-	char	*ea;
-	char	*we;
-	char	*ceiling;
-	char	*floor;
-	char	**map;
-	int		flag;
-	int		img_width;
-	int		img_height;
-	int		win_width;
-	int		win_height;
-}	t_data;
+    t_game		*game;
+    void		*img;
+    char		*img_addr;
+    int			img_bpp;
+    int			img_line_len;
+    int			img_endian;
+    t_texture	*textures;
+    void		*mlx;
+    void		*win;
+    char		*ceiling;
+    char		*floor;
+    char		**map;
+    int			flag;
+    int			win_width;
+    int			win_height;
+} t_data;
+
+typedef struct s_ray
+{
+    double	ray_dir_x;
+    double	ray_dir_y;
+    int		map_x;
+    int		map_y;
+    double	delta_dist_x;
+    double	delta_dist_y;
+    int		step_x;
+    int		step_y;
+    double	side_dist_x;
+    double	side_dist_y;
+    int		side;
+    double	perp_wall_dist;
+    int		draw_start;
+    int		draw_end;
+    char	*texture;
+    int		tex_width;
+    int		tex_height;
+    int		tex_x;
+} t_ray;
+
+typedef struct s_texture_load
+{
+    char    *path;
+    void    **img;
+    char    **addr;
+    int     *width;
+    int     *height;
+} t_texture_load;
 
 int		init_hooks(t_data *data);
 int		read_file(char *file, t_data *data);
@@ -86,10 +136,17 @@ int		is_line_empty(char *line);
 // utils2.c
 int		is_cub(char *file);
 char	*ft_trim(char *str);
+void	ft_error(char *msg);
 // load.c
 int		parse_color(char *line);
 int		load_textures(t_data *data);
-// raycasting.c
+// raytracing.c
+void	init_ray(t_data *data, int x, t_ray *ray);
+void	calc_delta_dist(t_ray *ray);
+void	init_step(t_data *data, t_ray *ray);
+void	cast_ray(t_data *data, t_ray *ray);
+void	calc_perp_wall_dist(t_data *data, t_ray *ray);
+// position.c
 int		get_player_position_and_direction(t_data *data, t_game *game);
 // rotate.c
 void	rotate_left(t_data *data);
@@ -99,5 +156,13 @@ void	move_forward(t_data *data);
 void	move_backward(t_data *data);
 void	strafe_left(t_data *data);
 void	strafe_right(t_data *data);
+// main.c
+void draw_scene(t_data *data);
+void my_mlx_pixel_put(char *addr, int line_length, int bpp, int x, int y, int color);
+
+int     load_textures(t_data *data);
+int     load_texture(t_data *data, t_texture_load *load);
+int     validate_texture_params(t_data *data, int temp_bpp, int temp_line_len, int temp_endian);
+int     load_textures_continued(t_data *data);
 
 #endif

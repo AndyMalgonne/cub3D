@@ -6,16 +6,15 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:48:40 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/18 14:48:38 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:23:50 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	handle_close(void *param)
+int	handle_close(t_data *data)
 {
-	(void)param;
-	printf("Window closed. Exiting...\n");
+	mlx_destroy_window(data->mlx, data->win);
 	exit(0);
 	return (0);
 }
@@ -36,19 +35,30 @@ int	handle_keypress(int keycode, t_data *data)
 		rotate_left(data);
 	else if (keycode == 101 || keycode == 65363)
 		rotate_right(data);
+	mlx_destroy_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, data->win_width, data->win_height);
+	if (!data->img)
+		return (printf("Error\nmlx_new_image failed\n"), 1);
+	data->img_addr = mlx_get_data_addr(data->img, &data->img_bpp,
+			&data->img_line_len, &data->img_endian);
+	if (!data->img_addr)
+		return (printf("Error\nmlx_get_data_addr failed\n"), 1);
+	draw_scene(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
 int	init_hooks(t_data *data)
 {
 	mlx_get_screen_size(data->mlx, &data->win_width, &data->win_height);
-    data->win = mlx_new_window(data->mlx, data->win_width, data->win_height , "cub3D Textures Test");
-    if (!data->win)
-    {
-        printf("Error\nmlx_new_window failed\n");
-        return (1);
-    }
-    mlx_hook(data->win, KeyPress, KeyPressMask, handle_keypress, NULL);
-    mlx_hook(data->win, DestroyNotify, StructureNotifyMask, handle_close, NULL);
-    return (0);
+	data->win = mlx_new_window(data->mlx, data->win_width,
+			data->win_height, "cub3D Textures Test");
+	if (!data->win)
+	{
+		printf("Error\nmlx_new_window failed\n");
+		return (1);
+	}
+	mlx_hook(data->win, KeyPress, KeyPressMask, handle_keypress, data);
+	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, handle_close, data);
+	return (0);
 }

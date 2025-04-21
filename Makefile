@@ -61,8 +61,10 @@ define SRC 	:=
 	parsing/check_map2.c \
 	parsing/load.c \
 	raycasting/raycasting.c \
+	raycasting/raycasting2.c \
 	raycasting/movement.c \
 	raycasting/rotate.c \
+	raycasting/position.c \
 	utils.c \
 	utils2.c
 endef

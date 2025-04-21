@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:23:23 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:15:22 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:25:20 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	check_map(t_data *data)
 
 int	check_color_texture_not_null(t_data *data)
 {
-	if (!data->no || !data->so || !data->ea || !data->we
+	if (!data->textures->no_path || !data->textures->so_path
+		|| !data->textures->ea_path || !data->textures->we_path
 		|| !data->ceiling || !data->floor)
 	{
 		printf("Error\nMissing texture or color information\n");
