@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 13:36:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/18 14:45:34 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:26:51 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,31 @@ int	set_direction(t_game *game, char pos)
 {
 	if (pos == 'N')
 	{
-		game->dirX = -1;
-		game->dirY = 0;
-		game->planeX = 0;
-		game->planeY = 0.66;
+		game->dirX = 0;
+		game->dirY = -1;
+		game->planeX = -0.66;
+		game->planeY = 0;
 	}
 	else if (pos == 'S')
-	{
-		game->dirX = 1;
-		game->dirY = 0;
-		game->planeX = 0;
-		game->planeY = -0.66;
-	}
-	else if (pos == 'E')
 	{
 		game->dirX = 0;
 		game->dirY = 1;
 		game->planeX = 0.66;
 		game->planeY = 0;
 	}
+	else if (pos == 'E')
+	{
+		game->dirX = 1;
+		game->dirY = 0;
+		game->planeX = 0;
+		game->planeY = 0.66;
+	}
 	else if (pos == 'W')
 	{
-		game->dirX = 0;
-		game->dirY = -1;
-		game->planeX = -0.66;
-		game->planeY = 0;
+		game->dirX = -1;
+		game->dirY = 0;
+		game->planeX = 0;
+		game->planeY = -0.66;
 	}
 	else
 		return(printf("Error\nInvalid position\n"), 0);
