@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/21 16:06:24 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:08:19 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	texture_parsing(char *line, t_data *data)
 		printf("Error\nInvalid texture identifier\n");
 		exit(1);
 	}
+	trimmed_line = NULL;
 	data->flag++;
 }
 
@@ -64,6 +65,7 @@ void	color_parsing(char *line, t_data *data)
 				free(trimmed_line), exit(1));
 		data->floor = trimmed_line;
 	}
+	trimmed_line = NULL;
 	data->flag++;
 }
 
@@ -75,7 +77,7 @@ char	**reallocate_map(char **map, char *line)
 	i = 0;
 	while (map[i])
 		i++;
-	new_map = malloc(sizeof(char *) * (i + 2));
+	new_map = ft_calloc(1, sizeof(char *) * (i + 2));
 	if (!new_map)
 		return (NULL);
 	i = 0;
@@ -85,6 +87,13 @@ char	**reallocate_map(char **map, char *line)
 		i++;
 	}
 	new_map[i] = ft_strdup(line);
+	if (!new_map[i])
+	{
+        while (i > 0)
+            free(new_map[--i]);
+        free(new_map);
+        return (NULL);
+    }
 	new_map[i + 1] = NULL;
 	free(map);
 	return (new_map);
@@ -99,7 +108,7 @@ void	store_map(char *line, t_data *data)
 		line[len - 1] = '\0';
 	if (!data->map)
 	{
-		data->map = malloc(sizeof(char *) * 2);
+		data->map = ft_calloc(1, sizeof(char *) * 2);
 		if (!data->map)
 			return ;
 		data->map[0] = ft_strdup(line);

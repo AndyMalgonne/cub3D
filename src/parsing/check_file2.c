@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 08:29:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/14 09:14:25 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:38:16 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	read_file(char *file, t_data *data)
 	while (line)
 	{
 		if (!process_line(line, data, &map_started, fd))
-			return (0);
+			return (cleanup(data), 0);
 		line = get_next_line(fd);
 	}
 	close(fd);

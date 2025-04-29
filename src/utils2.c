@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:15:06 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/21 14:01:37 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:36:54 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,17 @@ void	ft_error(char *msg)
 {
 	printf("%s\n", msg);
 	exit(1);
+}
+
+void free_map(char **map)
+{
+    int i = 0;
+    if (!map)
+        return;
+    while (map[i])
+	{
+        free(map[i]);
+        i++;
+    }
+    free(map);
 }

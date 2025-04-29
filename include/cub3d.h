@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 08:39:12 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:38:52 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ int		is_line_empty(char *line);
 int		is_cub(char *file);
 char	*ft_trim(char *str);
 void	ft_error(char *msg);
+void	free_map(char **map);
 // load.c
 int		parse_color(char *line);
 int		load_textures(t_data *data);
@@ -159,5 +160,7 @@ void	strafe_right(t_data *data);
 // main.c
 void draw_scene(t_data *data);
 void my_mlx_pixel_put(char *addr, int line_length, int bpp, int x, int y, int color);
+void fill_ceiling_and_floor(t_data *data, int ceiling_color, int floor_color);
+void cleanup(t_data *data);
 
 #endif
