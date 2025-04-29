@@ -2,7 +2,6 @@
 *.o
 *.a
 objs/
-maps/
 .dist/
 .DS_Store
 cub3D

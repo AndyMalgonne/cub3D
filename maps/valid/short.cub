@@ -1,0 +1,12 @@
+NO ./assets/maps/wolfenstein/eagle.xpm
+SO ./assets/maps/wolfenstein/color_stone.xpm
+WE ./assets/maps/wolfenstein/blue_stone.xpm
+EA ./assets/maps/wolfenstein/red_brick.xpm
+DO ./assets/maps/made/made_door.xpm
+
+F 14,5,58
+C 10,0,10
+
+1111111111111
+1E00200000001
+1111111111111

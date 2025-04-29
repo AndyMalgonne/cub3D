@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 10:45:51 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:04:17 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,29 @@ void cleanup(t_data *data)
                 mlx_destroy_image(data->mlx, data->textures->we_img);
         }
         free(data->textures);
+        data->textures = NULL;
     }
     free(data->ceiling);
+    data->ceiling = NULL;
     free(data->floor);
+    data->floor = NULL;
     free_map(data->map);
-    if (data->img)
+    data->map = NULL;
+    if (data->img) {
         mlx_destroy_image(data->mlx, data->img);
-    if (data->win)
+        data->img = NULL;
+    }
+    if (data->win) {
         mlx_destroy_window(data->mlx, data->win);
+        data->win = NULL;
+    }
     free(data->game);
-	if (data->mlx)
-	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
-	}
+    data->game = NULL;
+    if (data->mlx) {
+        mlx_destroy_display(data->mlx);
+        free(data->mlx);
+        data->mlx = NULL;
+    }
 }
 
 void	fill_ceiling_and_floor(t_data *data, int ceiling_color, int floor_color)

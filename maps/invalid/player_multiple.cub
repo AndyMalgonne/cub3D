@@ -1,0 +1,21 @@
+NO assets/maps/direction/north.xpm
+SO assets/maps/direction/south.xpm
+WE assets/maps/direction/west.xpm
+EA assets/maps/direction/east.xpm
+
+F 20,20,20
+C 200,200,200
+
+11111
+10001
+10S01
+10001
+10001
+10001
+11E01
+10001
+10001
+10001
+10001
+10001
+11111
