@@ -6,13 +6,13 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/21 15:26:00 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 08:41:34 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int init_struct(t_data *data)
+int	init_struct(t_data *data)
 {
 	data->textures = malloc(sizeof(t_texture));
 	if (!data->textures)
@@ -105,19 +105,19 @@ int	parsing(char *file, t_data *data, int *color_ceiling, int *color_floor)
 	return (1);
 }
 
-void my_mlx_pixel_put(char *addr, int line_length, int bpp, int x, int y, int color)
+void	my_mlx_pixel_put(char *addr, int line_length, int bpp, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	dst = addr + (y * line_length + x * (bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_data  data;
-	int     color_ceiling;
-	int     color_floor;
+	t_data	data;
+	int		color_ceiling;
+	int		color_floor;
 
 	if (argc != 2)
 		return (printf("Error\nInvalid number of arguments\n"), 1);

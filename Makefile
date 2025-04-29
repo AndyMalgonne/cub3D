@@ -59,7 +59,8 @@ define SRC 	:=
 	parsing/check_file2.c \
 	parsing/check_map.c \
 	parsing/check_map2.c \
-	parsing/load.c \
+	parsing/load_color.c \
+	parsing/load_textures.c \
 	raycasting/raycasting.c \
 	raycasting/raycasting2.c \
 	raycasting/movement.c \

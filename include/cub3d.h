@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/21 16:22:50 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 08:39:12 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,14 @@ typedef struct s_ray
     int		tex_x;
 } t_ray;
 
-typedef struct s_texture_load
+typedef struct s_texture_data
 {
-    char    *path;
-    void    **img;
-    char    **addr;
-    int     *width;
-    int     *height;
-} t_texture_load;
+    char	*path;
+    void	**img;
+    char	**addr;
+    int		*width;
+    int		*height;
+}	t_texture_data;
 
 int		init_hooks(t_data *data);
 int		read_file(char *file, t_data *data);
@@ -159,10 +159,5 @@ void	strafe_right(t_data *data);
 // main.c
 void draw_scene(t_data *data);
 void my_mlx_pixel_put(char *addr, int line_length, int bpp, int x, int y, int color);
-
-int     load_textures(t_data *data);
-int     load_texture(t_data *data, t_texture_load *load);
-int     validate_texture_params(t_data *data, int temp_bpp, int temp_line_len, int temp_endian);
-int     load_textures_continued(t_data *data);
 
 #endif
