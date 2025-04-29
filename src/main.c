@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 10:22:06 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:45:51 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ int	init_struct(t_data *data)
 		printf("Error\nFailed to allocate memory for textures\n");
 		return (0);
 	}
-	*data->textures = (t_texture){0};
-	data->game = NULL;
-	data->img = NULL;
-	data->img_addr = NULL;
-	data->img_bpp = 0;
-	data->img_line_len = 0;
-	data->img_endian = 0;
-	data->ceiling = NULL;
-	data->floor = NULL;
-	data->map = NULL;
-	data->flag = 0;
-	data->win = NULL;
-	data->win_height = 0;
-	data->win_width = 0;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 	{
@@ -55,14 +41,7 @@ int	init_game(t_data *data)
 		return (0);
 	}
 	data->game = game;
-	data->game->pos_x = 0;
-	data->game->pos_y = 0;
-	data->game->dir_x = 0;
-	data->game->dir_y = 0;
-	data->game->plane_x = 0;
-	data->game->plane_y = 0;
-	data->game->time = 0;
-	data->game->oldtime = 0;
+	*data->game = (t_game){0};
 	return (1);
 }
 
