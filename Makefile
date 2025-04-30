@@ -67,7 +67,8 @@ define SRC 	:=
 	raycasting/rotate.c \
 	raycasting/position.c \
 	utils.c \
-	utils2.c
+	utils2.c \
+	utils3.c
 endef
 
 SRC 		:= ${strip ${SRC}}
