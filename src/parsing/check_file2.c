@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 08:29:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 09:38:16 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/30 08:04:26 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,22 @@ int	process_line(char *line, t_data *data, int *map_started, int fd)
 		if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 			|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0
 			|| ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-		{
-			printf("Error\nConfiguration lines cannot appear after the map\n");
-			return (free(line), close(fd), 0);
-		}
+			return (free(line),
+				printf("Error\nConfig lines error\n"), close(fd), 0);
 	}
 	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 		|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0)
-		texture_parsing(line, data);
-	else if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
-		color_parsing(line, data);
-	else
 	{
-		*map_started = 1;
-		store_map(line, data);
+		if (!texture_parsing(line, data))
+			return (free(line), close(fd), 0);
 	}
+	else if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+	{
+		if (!color_parsing(line, data))
+			return (free(line), close(fd), 0);
+	}
+	else
+		(store_map(line, data), *map_started = 1);
 	return (free(line), 1);
 }
 
@@ -58,7 +59,7 @@ int	read_file(char *file, t_data *data)
 	while (line)
 	{
 		if (!process_line(line, data, &map_started, fd))
-			return (cleanup(data), 0);
+			return (0);
 		line = get_next_line(fd);
 	}
 	close(fd);

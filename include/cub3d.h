@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 09:38:52 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/30 07:59:57 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ int		check_walls(t_data *data);
 int		check_map_closed(t_data *data);
 
 // check_file.c
-void	texture_parsing(char *line, t_data *data);
-void	color_parsing(char *line, t_data *data);
+int	texture_parsing(char *line, t_data *data);
+int	color_parsing(char *line, t_data *data);
 void	store_map(char *line, t_data *data);
 // check_map.c
 int		check_top_wall(t_data *data);
@@ -138,6 +138,7 @@ int		is_cub(char *file);
 char	*ft_trim(char *str);
 void	ft_error(char *msg);
 void	free_map(char **map);
+char	**reallocate_map(char **map, char *line);
 // load.c
 int		parse_color(char *line);
 int		load_textures(t_data *data);

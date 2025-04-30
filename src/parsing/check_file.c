@@ -6,47 +6,66 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/29 10:08:19 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/04/30 07:59:34 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	assign_texture(char **texture, char *identifier, char *trimmed_line)
+int	assign_texture(char **texture, char *identifier, char *trimmed_line)
 {
 	if (*texture)
 	{
 		printf("Error\nDuplicate texture: %s\n", identifier);
 		free(trimmed_line);
-		exit(1);
+		return (0);
 	}
 	*texture = trimmed_line;
+	return (1);
 }
 
-void	texture_parsing(char *line, t_data *data)
+int	handle_texture_id(char *line, char *trimmed_line, t_data *data)
+{
+	char	*ids[4];
+	char	**paths[4];
+	int		i;
+
+	ids[0] = "NO";
+	ids[1] = "SO";
+	ids[2] = "WE";
+	ids[3] = "EA";
+	paths[0] = &data->textures->no_path;
+	paths[1] = &data->textures->so_path;
+	paths[2] = &data->textures->we_path;
+	paths[3] = &data->textures->ea_path;
+	i = 0;
+	while (i < 4)
+	{
+		if (ft_strncmp(line, ids[i], 2) == 0)
+			return (assign_texture(paths[i], ids[i], trimmed_line));
+		i++;
+	}
+	return (0);
+}
+
+int	texture_parsing(char *line, t_data *data)
 {
 	char	*trimmed_line;
 
 	trimmed_line = ft_trim(line + 2);
-	if (ft_strncmp(line, "NO", 2) == 0)
-		assign_texture(&data->textures->no_path, "NO", trimmed_line);
-	else if (ft_strncmp(line, "SO", 2) == 0)
-		assign_texture(&data->textures->so_path, "SO", trimmed_line);
-	else if (ft_strncmp(line, "WE", 2) == 0)
-		assign_texture(&data->textures->we_path, "WE", trimmed_line);
-	else if (ft_strncmp(line, "EA", 2) == 0)
-		assign_texture(&data->textures->ea_path, "EA", trimmed_line);
-	else
+	if (!trimmed_line)
+		return (0);
+	if (!handle_texture_id(line, trimmed_line, data))
 	{
 		free(trimmed_line);
 		printf("Error\nInvalid texture identifier\n");
-		exit(1);
+		return (0);
 	}
-	trimmed_line = NULL;
 	data->flag++;
+	return (1);
 }
 
-void	color_parsing(char *line, t_data *data)
+int	color_parsing(char *line, t_data *data)
 {
 	char	*trimmed_line;
 
@@ -55,48 +74,18 @@ void	color_parsing(char *line, t_data *data)
 	{
 		if (data->ceiling)
 			return (printf("Error\nDuplicate color: C\n"),
-				free(trimmed_line), exit(1));
+				free(trimmed_line), 0);
 		data->ceiling = trimmed_line;
 	}
 	else if (ft_strncmp(line, "F", 1) == 0)
 	{
 		if (data->floor)
 			return (printf("Error\nDuplicate color: F\n"),
-				free(trimmed_line), exit(1));
+				free(trimmed_line), 0);
 		data->floor = trimmed_line;
 	}
-	trimmed_line = NULL;
 	data->flag++;
-}
-
-char	**reallocate_map(char **map, char *line)
-{
-	char	**new_map;
-	int		i;
-
-	i = 0;
-	while (map[i])
-		i++;
-	new_map = ft_calloc(1, sizeof(char *) * (i + 2));
-	if (!new_map)
-		return (NULL);
-	i = 0;
-	while (map[i])
-	{
-		new_map[i] = map[i];
-		i++;
-	}
-	new_map[i] = ft_strdup(line);
-	if (!new_map[i])
-	{
-        while (i > 0)
-            free(new_map[--i]);
-        free(new_map);
-        return (NULL);
-    }
-	new_map[i + 1] = NULL;
-	free(map);
-	return (new_map);
+	return (1);
 }
 
 void	store_map(char *line, t_data *data)
