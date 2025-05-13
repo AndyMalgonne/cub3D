@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:59:59 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/06 08:32:29 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:10:30 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	calc_draw_range(t_data *data, t_ray *ray)
 {
-	int	line_height;
-
-	line_height = (int)(data->win_height / ray->perp_wall_dist);
-	ray->draw_start = -line_height / 2 + data->win_height / 2;
+	ray->line_height = (int)(data->win_height / ray->perp_wall_dist);
+	ray->draw_start = -ray->line_height / 2 + data->win_height / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
-	ray->draw_end = line_height / 2 + data->win_height / 2;
+	ray->draw_end = ray->line_height / 2 + data->win_height / 2;
 	if (ray->draw_end >= data->win_height)
 		ray->draw_end = data->win_height - 1;
 }
@@ -69,76 +67,44 @@ void	calc_texture_x(t_data *data, t_ray *ray)
 		ray->tex_x = ray->tex_width - ray->tex_x - 1;
 }
 
-void	draw_vertical_line(t_data *data, int x, t_ray *ray)
+static void	texture_draw(t_data *data, t_ray *ray, t_draw_data *params)
 {
-	int		y;
-	int		d;
 	int		tex_y;
 	int		color;
 
+	tex_y = (int)params->tex_pos;
+	if (tex_y < 0)
+		tex_y = 0;
+	if (tex_y >= ray->tex_height)
+		tex_y = ray->tex_height - 1;
+	if (ray->tex_x < 0 || ray->tex_x >= ray->tex_width || !ray->texture)
+		ft_error("Texture coordinate error");
+	color = *(unsigned int *)(ray->texture
+			+ (tex_y * data->textures->line_len
+				+ ray->tex_x * (data->textures->bpp / 8)));
+	if (params->x >= 0 && params->x < data->win_width
+		&& params->y >= 0 && params->y < data->win_height)
+		my_mlx_pixel_put(data, params->x, params->y, color);
+}
+
+void	draw_vertical_line(t_data *data, int x, t_ray *ray)
+{
+	int				y;
+	double			tex_pos;
+	double			step;
+	t_draw_data		params;
+
+	step = (double)ray->tex_height / ray->line_height;
+	tex_pos = (ray->draw_start
+			- data->win_height / 2 + ray->line_height / 2) * step;
 	y = ray->draw_start;
 	while (y < ray->draw_end)
 	{
-		d = y * 256 - data->win_height * 128
-			+ (ray->draw_end - ray->draw_start + 1) * 128;
-		tex_y = ((d * ray->tex_height)
-				/ (ray->draw_end - ray->draw_start + 1)) / 256;
-		if (ray->tex_x < 0 || ray->tex_x >= ray->tex_width || tex_y < 0
-			|| tex_y >= ray->tex_height || !ray->texture)
-			ft_error("Texture error");
-		color = *(unsigned int *)(ray->texture + (tex_y
-					* data->textures->line_len + ray->tex_x
-					* (data->textures->bpp / 8)));
-		if (x >= 0 && x < data->win_width && y >= 0 && y < data->win_height)
-			my_mlx_pixel_put(data, x, y, color);
+		params.x = x;
+		params.y = y;
+		params.tex_pos = tex_pos;
+		texture_draw(data, ray, &params);
+		tex_pos += step;
 		y++;
-	}
-}
-
-void	draw_scene(t_data *data)
-{
-	int		ceiling_color;
-	int		floor_color;
-	int		x;
-	t_ray	ray;
-
-	ceiling_color = parse_color(data->ceiling);
-	floor_color = parse_color(data->floor);
-	fill_ceiling_and_floor(data, ceiling_color, floor_color);
-	x = 0;
-	while (x < data->win_width)
-	{
-		init_ray(data, x, &ray);
-		calc_delta_dist(&ray);
-		init_step(data, &ray);
-		cast_ray(data, &ray);
-		calc_perp_wall_dist(data, &ray);
-		calc_draw_range(data, &ray);
-		select_texture(data, &ray);
-		calc_texture_x(data, &ray);
-		draw_vertical_line(data, x, &ray);
-		x++;
-	}
-	int		ceiling_color;
-	int		floor_color;
-	int		x;
-	t_ray	ray;
-
-	ceiling_color = parse_color(data->ceiling);
-	floor_color = parse_color(data->floor);
-	fill_ceiling_and_floor(data, ceiling_color, floor_color);
-	x = 0;
-	while (x < data->win_width)
-	{
-		init_ray(data, x, &ray);
-		calc_delta_dist(&ray);
-		init_step(data, &ray);
-		cast_ray(data, &ray);
-		calc_perp_wall_dist(data, &ray);
-		calc_draw_range(data, &ray);
-		select_texture(data, &ray);
-		calc_texture_x(data, &ray);
-		draw_vertical_line(data, x, &ray);
-		x++;
 	}
 }

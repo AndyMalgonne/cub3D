@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:48:40 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/30 07:44:07 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:05:37 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,30 @@ int	init_hooks(t_data *data)
 	mlx_hook(data->win, KeyPress, KeyPressMask, handle_keypress, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, handle_close, data);
 	return (0);
+}
+
+void	draw_scene(t_data *data)
+{
+	int		ceiling_color;
+	int		floor_color;
+	int		x;
+	t_ray	ray;
+
+	ceiling_color = parse_color(data->ceiling);
+	floor_color = parse_color(data->floor);
+	fill_ceiling_and_floor(data, ceiling_color, floor_color);
+	x = 0;
+	while (x < data->win_width)
+	{
+		init_ray(data, x, &ray);
+		calc_delta_dist(&ray);
+		init_step(data, &ray);
+		cast_ray(data, &ray);
+		calc_perp_wall_dist(data, &ray);
+		calc_draw_range(data, &ray);
+		select_texture(data, &ray);
+		calc_texture_x(data, &ray);
+		draw_vertical_line(data, x, &ray);
+		x++;
+	}
 }

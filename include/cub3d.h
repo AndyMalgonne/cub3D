@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/06 08:33:03 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:08:37 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_ray
 	int		tex_width;
 	int		tex_height;
 	int		tex_x;
+	int		line_height;
 }	t_ray;
 
 typedef struct s_texture_data
@@ -114,6 +115,13 @@ typedef struct s_texture_data
 	int		*width;
 	int		*height;
 }	t_texture_data;
+
+typedef struct s_draw_data
+{
+    int x;
+    int y;
+    double tex_pos;
+} t_draw_data;
 
 // utils.c
 int		check_map(t_data *data);
@@ -146,12 +154,17 @@ int		init_hooks(t_data *data);
 // load.c
 int		parse_color(char *line);
 int		load_textures(t_data *data);
-// raytracing.c
+// raycasting.c
 void	init_ray(t_data *data, int x, t_ray *ray);
 void	calc_delta_dist(t_ray *ray);
 void	init_step(t_data *data, t_ray *ray);
 void	cast_ray(t_data *data, t_ray *ray);
 void	calc_perp_wall_dist(t_data *data, t_ray *ray);
+// raycasting2.c
+void	calc_draw_range(t_data *data, t_ray *ray);
+void	select_texture(t_data *data, t_ray *ray);
+void	calc_texture_x(t_data *data, t_ray *ray);
+void	draw_vertical_line(t_data *data, int x, t_ray *ray);
 // position.c
 int		get_player_position_and_direction(t_data *data, t_game *game);
 // rotate.c
