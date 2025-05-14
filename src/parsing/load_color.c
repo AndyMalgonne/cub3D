@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 10:59:59 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/30 08:07:37 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/14 23:11:18 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ int	validate_rgb_array(char **rgb)
 		return (0);
 	}
 	if (!validate_and_trim_rgb(rgb))
-	{
-		ft_fsplit(rgb);
 		return (0);
-	}
 	return (1);
 }
 
@@ -85,12 +82,23 @@ int	parse_color(char *line)
 	char	*trimmed_line;
 	char	**rgb;
 	int		color;
+	int		len;
 
+	if (!line)
+		return (printf("Error\nNull color line\n"), -1);
 	trimmed_line = ft_trim(line);
 	if (!trimmed_line)
-		return (-1);
+		return (printf("Error\nFailed to trim color line\n"), -1);
+	len = ft_strlen(trimmed_line);
+	if (len > 0 && trimmed_line[len - 1] == ',')
+	{
+		free(trimmed_line);
+		return (printf("Error\nInvalid color format\n"), -1);
+	}
 	rgb = ft_split(trimmed_line, ',');
 	free(trimmed_line);
+	if (!rgb)
+		return (printf("Error\nFailed to split color line\n"), -1);
 	if (!validate_rgb_array(rgb))
 		return (-1);
 	color = convert_rgb_to_int(rgb);
