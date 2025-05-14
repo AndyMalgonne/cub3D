@@ -1,8 +1,7 @@
-NO ./assets/maps/wolfenstein/eagle.xpm
-SO ./assets/maps/wolfenstein/color_stone.xpm
-WE ./assets/maps/wolfenstein/blue_stone.xpm
-EA ./assets/maps/wolfenstein/red_brick.xpm
-DO ./assets/maps/made/made_door.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 220,100,0
 C 225,30,0

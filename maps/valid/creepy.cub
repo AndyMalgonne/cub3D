@@ -1,7 +1,7 @@
-NO assets/maps/simonkraft/respawn_anchor_side0.xpm
-EA assets/maps/simonkraft/respawn_anchor_side2.xpm
-SO assets/maps/simonkraft/respawn_anchor_side4.xpm
-WE assets/maps/simonkraft/respawn_anchor_side3.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 C 35,19,73
 F 15,6,40

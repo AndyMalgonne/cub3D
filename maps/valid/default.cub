@@ -1,7 +1,7 @@
-NO ./assets/maps/debug/missing_n.xpm
-SO ./assets/maps/debug/missing_s.xpm
-WE ./assets/maps/debug/missing_w.xpm
-EA ./assets/maps/debug/missing_e.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 220,100,0
 C 225,30,0

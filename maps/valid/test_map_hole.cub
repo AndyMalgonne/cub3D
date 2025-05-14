@@ -1,7 +1,7 @@
-NO assets/maps/wolfenstein/grey_stone.xpm
-SO assets/maps/wolfenstein/purple_stone.xpm
-WE assets/maps/wolfenstein/red_brick.xpm
-EA assets/maps/wolfenstein/wood.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 18,53,25
 C 153,204,255

@@ -1,7 +1,7 @@
-NO ./assets/world/wall.xpm
-SO ./assets/world/wall.xpm
-WE ./assets/world/wall.xpm
-EA ./assets/world/wall.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 14,5,58
 C 10,0,10

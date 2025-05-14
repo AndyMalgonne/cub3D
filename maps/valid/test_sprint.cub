@@ -1,7 +1,7 @@
-NO assets/maps/matrix/matrix.xpm
-SO assets/maps/matrix/matrix.xpm
-WE assets/maps/matrix/matrix.xpm
-EA assets/maps/matrix/matrix.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 0,0,0
 C 0,0,0

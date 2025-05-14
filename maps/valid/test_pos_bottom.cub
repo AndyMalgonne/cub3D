@@ -1,7 +1,7 @@
-NO assets/maps/direction/north.xpm
-SO assets/maps/direction/south.xpm
-WE assets/maps/direction/west.xpm
-EA assets/maps/direction/east.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 20,20,20
 C 200,200,200

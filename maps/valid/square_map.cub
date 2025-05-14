@@ -1,15 +1,9 @@
-   WE                            assets/maps/wolfenstein/eagle.xpm
-NO      assets/maps/wolfenstein/grey_stone.xpm
-
-
-
-SO assets/maps/wolfenstein/red_brick.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F   69, 222, 199
-
-EA assets/maps/wolfenstein/mossy.xpm
-
-
 
 C 235, 198, 52
 

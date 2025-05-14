@@ -1,7 +1,7 @@
-NO assets/maps/simonkraft/wet_sponge.xpm
-SO assets/maps/simonkraft/wet_sponge.xpm
-WE assets/maps/simonkraft/wet_sponge.xpm
-EA assets/maps/simonkraft/wet_sponge.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 F 164,169,20
 C 153,204,255

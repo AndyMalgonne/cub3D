@@ -1,7 +1,7 @@
-NO assets/maps/simonkraft/soul_sand.xpm
-SO assets/maps/simonkraft/soul_soil_01.xpm
-WE assets/maps/simonkraft/soul_soil.xpm
-EA assets/maps/simonkraft/soul_sand.xpm
+NO ./textures/NO.xpm
+SO 			./textures/SO.xpm
+EA ./textures/EA.xpm
+WE ./textures/WE.xpm
 
 C 53,41,34
 F 45,33,27
