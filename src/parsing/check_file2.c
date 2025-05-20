@@ -6,33 +6,50 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 08:29:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/30 08:04:26 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 06:08:13 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static char	*skip_whitespace(char *line)
+{
+	while (*line == ' ' || *line == '\t')
+		line++;
+	return (line);
+}
+
+static int	is_config_line(char *line)
+{
+	return (
+		ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
+		|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0
+		|| ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0
+	);
+}
+
 int	process_line(char *line, t_data *data, int *map_started, int fd)
 {
+	char	*trim;
+
+	trim = skip_whitespace(line);
 	if (is_line_empty(line) && (data->flag < 6 || !(*map_started)))
 		return (free(line), 1);
 	if (*map_started)
 	{
-		if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
-			|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0
-			|| ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+		if (is_config_line(trim))
 			return (free(line),
 				printf("Error\nConfig lines error\n"), close(fd), 0);
 	}
-	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
-		|| ft_strncmp(line, "EA", 2) == 0 || ft_strncmp(line, "WE", 2) == 0)
+	if (ft_strncmp(trim, "NO", 2) == 0 || ft_strncmp(trim, "SO", 2) == 0
+		|| ft_strncmp(trim, "EA", 2) == 0 || ft_strncmp(trim, "WE", 2) == 0)
 	{
-		if (!texture_parsing(line, data))
+		if (!texture_parsing(trim, data))
 			return (free(line), close(fd), 0);
 	}
-	else if (ft_strncmp(line, "C", 1) == 0 || ft_strncmp(line, "F", 1) == 0)
+	else if (ft_strncmp(trim, "C", 1) == 0 || ft_strncmp(trim, "F", 1) == 0)
 	{
-		if (!color_parsing(line, data))
+		if (!color_parsing(trim, data))
 			return (free(line), close(fd), 0);
 	}
 	else
