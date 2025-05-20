@@ -6,18 +6,16 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 09:23:10 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/04/30 07:59:34 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 05:49:20 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	assign_texture(char **texture, char *identifier, char *trimmed_line)
+int	assign_texture(char **texture, char *trimmed_line)
 {
 	if (*texture)
 	{
-		printf("Error\nDuplicate texture: %s\n", identifier);
-		free(trimmed_line);
 		return (0);
 	}
 	*texture = trimmed_line;
@@ -42,7 +40,7 @@ int	handle_texture_id(char *line, char *trimmed_line, t_data *data)
 	while (i < 4)
 	{
 		if (ft_strncmp(line, ids[i], 2) == 0)
-			return (assign_texture(paths[i], ids[i], trimmed_line));
+			return (assign_texture(paths[i], trimmed_line));
 		i++;
 	}
 	return (0);
@@ -51,14 +49,21 @@ int	handle_texture_id(char *line, char *trimmed_line, t_data *data)
 int	texture_parsing(char *line, t_data *data)
 {
 	char	*trimmed_line;
+	int		ret;
 
 	trimmed_line = ft_trim(line + 2);
 	if (!trimmed_line)
 		return (0);
-	if (!handle_texture_id(line, trimmed_line, data))
+	ret = handle_texture_id(line, trimmed_line, data);
+	if (ret == 0)
 	{
 		free(trimmed_line);
 		printf("Error\nInvalid texture identifier\n");
+		return (0);
+	}
+	else if (ret == -1)
+	{
+		free(trimmed_line);
 		return (0);
 	}
 	data->flag++;
