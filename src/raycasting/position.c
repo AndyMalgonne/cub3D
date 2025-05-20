@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 13:36:25 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/13 18:49:05 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 04:41:37 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	set_plane(t_game *game)
 {
-	game->plane_x = game->dir_y * 0.66;
+	game->plane_x = -game->dir_y * 0.66;
 	game->plane_y = game->dir_x * 0.66;
 }
 

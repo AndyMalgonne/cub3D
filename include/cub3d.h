@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 10:21:35 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/13 19:08:37 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 04:30:09 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <X11/X.h>
 # include <math.h>
 
-# define MOVE_SPEED 0.05
-# define ROT_SPEED 0.05
+# define MOVE_SPEED 0.5
+# define ROT_SPEED 0.25
 
 typedef struct s_game
 {
@@ -118,25 +118,43 @@ typedef struct s_texture_data
 
 typedef struct s_draw_data
 {
-    int x;
-    int y;
-    double tex_pos;
-} t_draw_data;
+	int		x;
+	int		y;
+	double	tex_pos;
+}	t_draw_data;
 
-// utils.c
+typedef struct s_move_data
+{
+	double	curr_x;
+	double	curr_y;
+	double	new_x;
+	double	new_y;
+	double	inter_x;
+	double	inter_y;
+}	t_move_data;
+
+// parsing_utils.c
 int		check_map(t_data *data);
 int		check_walls(t_data *data);
 int		check_color_texture_not_null(t_data *data);
 int		is_line_empty(char *line);
-// utils2.c
+// parsing_utils2.c
 int		is_cub(char *file);
 char	*ft_trim(char *str);
 void	ft_error(char *msg);
 void	free_map(char **map);
 char	**reallocate_map(char **map, char *line);
-// utils3.c
+// raycasting_utils.c
 void	cleanup(t_data *data);
 void	fill_ceiling_and_floor(t_data *data, int cc, int fc);
+// raycasting_utils2.c
+int		get_map_width(t_data *data, int row);
+int		get_map_height(t_data *data);
+int		is_valid_position(t_data *data, double x, double y);
+void	calculate_intermediate_position(t_move_data *move, int step);
+void	invalid_pos(t_move_data *move, double last_x, double last_y, int i);
+// raycasting_utils3.c
+int		mray(t_data *data, t_ray *ray, int map_height);
 // check_file.c
 int		texture_parsing(char *line, t_data *data);
 int		color_parsing(char *line, t_data *data);
