@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 11:48:40 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/13 19:05:37 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 06:13:49 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	init_hooks(t_data *data)
 {
 	mlx_get_screen_size(data->mlx, &data->win_width, &data->win_height);
 	data->win = mlx_new_window(data->mlx, data->win_width,
-			data->win_height, "cub3D Textures Test");
+			data->win_height, "cub3D");
 	if (!data->win)
 	{
 		printf("Error\nmlx_new_window failed\n");
