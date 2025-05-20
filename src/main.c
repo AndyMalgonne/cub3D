@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 10:17:46 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/06 08:33:24 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 05:45:39 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 		return (printf("Error\nInvalid number of arguments\n"), 1);
 	if (!init_struct(&data) || !init_game(&data)
 		|| !parsing(argv[1], &data, &color_ceiling, &color_floor)
-		|| init_hooks(&data) || !load_textures(&data)
+		|| !load_textures(&data) || init_hooks(&data)
 		|| !get_player_position_and_direction(&data, data.game))
 		return (cleanup(&data), 1);
 	data.img = mlx_new_image(data.mlx, data.win_width, data.win_height);
