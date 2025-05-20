@@ -66,9 +66,11 @@ define SRC 	:=
 	raycasting/movement.c \
 	raycasting/rotate.c \
 	raycasting/position.c \
-	utils.c \
-	utils2.c \
-	utils3.c
+	utils/parsing_utils.c \
+	utils/parsing_utils2.c \
+	utils/raycasting_utils.c \
+	utils/raycasting_utils2.c \
+	utils/raycasting_utils3.c 
 endef
 
 SRC 		:= ${strip ${SRC}}

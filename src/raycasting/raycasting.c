@@ -6,7 +6,7 @@
 /*   By: amalgonn <amalgonn@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:38:02 by amalgonn          #+#    #+#             */
-/*   Updated: 2025/05/05 12:18:05 by amalgonn         ###   ########.fr       */
+/*   Updated: 2025/05/20 04:24:18 by amalgonn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,13 @@ void	init_step(t_data *data, t_ray *ray)
 void	cast_ray(t_data *data, t_ray *ray)
 {
 	int	hit;
+	int	map_height;
 
 	hit = 0;
+	map_height = get_map_height(data);
 	while (hit == 0)
 	{
-		if (ray->side_dist_x < ray->side_dist_y)
-		{
-			ray->side_dist_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side = 0;
-		}
-		else
-		{
-			ray->side_dist_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side = 1;
-		}
-		if (data->map[ray->map_y][ray->map_x] == '1')
-			hit = 1;
+		hit = mray(data, ray, map_height);
 	}
 }
 
